@@ -1,7 +1,7 @@
 [project]
 name = "firefly-importer"
 version = "0.1.0"
-description = "Add your description here"
+description = "Imports transactions from a Starling Bank account into Firefly III"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
