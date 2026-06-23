@@ -51,4 +51,8 @@ class FireflyClient:
             json=payload,
             verify=False,
         )
-        res.raise_for_status()
+        try:
+            res.raise_for_status()
+        except r.exceptions.HTTPError:
+            print(res.json())
+            raise
