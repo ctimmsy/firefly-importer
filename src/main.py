@@ -1,10 +1,9 @@
+import os
+from datetime import datetime, UTC
 from dotenv import load_dotenv
 from database import DatabaseClient
-
 from firefly import FireflyClient
 from starling import StarlingClient
-from datetime import datetime, UTC
-import os
 
 load_dotenv(".env")
 
