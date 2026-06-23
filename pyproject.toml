@@ -5,5 +5,6 @@ description = "Imports transactions from a Starling Bank account into Firefly II
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "dotenv>=0.9.9",
     "requests>=2.34.2",
 ]

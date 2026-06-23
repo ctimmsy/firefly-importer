@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 from database import DatabaseClient
 
 from firefly import FireflyClient
@@ -5,6 +6,7 @@ from starling import StarlingClient
 from datetime import datetime, UTC
 import os
 
+load_dotenv(".env")
 
 firefly_token = os.getenv("FFLY_TOKEN")
 firefly_url = os.getenv("FFLY_URL")
