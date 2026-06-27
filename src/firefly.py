@@ -8,19 +8,18 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class FireflyClient:
-    def __init__(
-        self,
-        base_url: str,
-        token: str,
-    ):
+    def __init__(self, base_url: str, token: str, account_id: int):
         self.base_url = base_url
         self.token = token
-        self.req_headers = {
-            "Authorization": f"Bearer {self.token}",
-            "Accept": "application/json",
-        }
+        self.req_headers = (
+            {
+                "Authorization": f"Bearer {self.token}",
+                "Accept": "application/json",
+            },
+        )
+        self.account_id = account_id
 
-    def import_transaction(self, transaction: Transaction, account_id: int):
+    def import_transaction(self, transaction: Transaction):
         payload = {
             "error_if_duplicate_hash": True,
             "transactions": [
@@ -37,11 +36,11 @@ class FireflyClient:
         tx = payload["transactions"][0]
 
         if transaction.type == "withdrawal":
-            tx["source_id"] = str(account_id)
+            tx["source_id"] = str(self.account_id)
             tx["destination_name"] = transaction.counterparty
 
         elif transaction.type == "deposit":
-            tx["destination_id"] = str(account_id)
+            tx["destination_id"] = str(self.account_id)
             tx["source_name"] = transaction.counterparty
 
         res = r.request(

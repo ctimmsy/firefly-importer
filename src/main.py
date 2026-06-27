@@ -9,6 +9,7 @@ load_dotenv(".env")
 
 firefly_token = os.getenv("FFLY_TOKEN")
 firefly_url = os.getenv("FFLY_URL")
+firefly_account_id = os.getenv("FFLY_ACCOUNT_ID")
 starling_token = os.getenv("STARLING_TOKEN")
 database_path = os.getenv("SQLITE_PATH")
 
@@ -22,10 +23,12 @@ def main():
         raise ValueError('Environment variable "STARLING_TOKEN" not provided')
     if not database_path:
         raise ValueError('Environment variable "SQLITE_PATH" not provided')
+    if not firefly_account_id:
+        raise ValueError('Environment variable "FFLY_ACCOUNT_ID" not provided')
 
     db = DatabaseClient(database_path)
     db.init_db()
-    ffly = FireflyClient(firefly_url, firefly_token)
+    ffly = FireflyClient(firefly_url, firefly_token, firefly_account_id)
     starling = StarlingClient(starling_token, "Starling")
 
     since = db.latest_transaction_date()
@@ -41,7 +44,7 @@ def main():
         if db.has_been_imported(transaction.uid):
             print(f"Transaction: {transaction.uid} already imported")
             continue
-        ffly.import_transaction(transaction, 725)
+        ffly.import_transaction(transaction)
         db.import_transaction(transaction)
 
 
