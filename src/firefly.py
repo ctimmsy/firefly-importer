@@ -11,12 +11,10 @@ class FireflyClient:
     def __init__(self, base_url: str, token: str, account_id: int):
         self.base_url = base_url
         self.token = token
-        self.req_headers = (
-            {
-                "Authorization": f"Bearer {self.token}",
-                "Accept": "application/json",
-            },
-        )
+        self.req_headers = {
+            "Authorization": f"Bearer {self.token}",
+            "Accept": "application/json",
+        }
         self.account_id = account_id
 
     def import_transaction(self, transaction: Transaction):
