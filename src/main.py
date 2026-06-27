@@ -28,7 +28,7 @@ def main():
 
     db = DatabaseClient(database_path)
     db.init_db()
-    ffly = FireflyClient(firefly_url, firefly_token, firefly_account_id)
+    ffly = FireflyClient(firefly_url, firefly_token, int(firefly_account_id))
     starling = StarlingClient(starling_token, "Starling")
 
     since = db.latest_transaction_date()
